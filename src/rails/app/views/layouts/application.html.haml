@@ -1,0 +1,43 @@
+!= cc_html({}.merge(html_attrs('en'))) do
+  %head
+    %meta{:charset=>"UTF-8"}
+
+    %title Jingle Jaws
+
+    = # Add an empty conditional comment *before any external resources* to prevent blocking of parallel downloads caused by conditional comments.
+    = # http://webforscher.wordpress.com/2010/05/20/ie-6-slowing-down-ie-8/
+    /[if IE]
+
+    = # Include stylesheets immediately after Modernizr
+    = stylesheet_link_tag "global", "application"
+
+    = # Controller-specific css
+    = # stylesheet_link_tag params[:controller]
+
+    %script if(!window.console||!console.firebug){var a=["log","debug","info","warn","error","assert","dir","dirxml","group","groupEnd","time","timeEnd","count","trace","profile","profileEnd"];window.console={};for(var i=0;i<a.length;++i)window.console[a[i]]=function(){}}
+
+    - #required meta tags to handle authenticity tokens for form posts
+    = csrf_meta_tag
+
+  %body
+    #main
+      = render :partial=>"layouts/header"
+      = yield
+      = render :partial=>"layouts/footer"
+
+    = # CDN jQuery with robust failover from: http://blog.arkesystems.com/post/2010/08/Gotchas-when-loading-jquery-from-a-CDN.aspx
+    = javascript_include_tag "//ajax.googleapis.com/ajax/libs/jquery/1.6.4/jquery.min.js"
+    %script if (typeof jQuery === 'undefined') {document.write(unescape("%3Cscript src='/javascripts/libs/jquery.min.js' type='text/javascript'%3E%3C/script%3E"));}
+
+    = # No dep handling for Closure asset pipeline
+    %script var CLOSURE_NO_DEPS = true;
+
+    = # Load socket.io client JS from Node on a festive port
+    = javascript_include_tag 'http://dev.jinglejaws.net:1225/socket.io/socket.io.js'
+
+    = # Load JS via the asset pipeline
+    = javascript_include_tag :application
+
+    = # Controller-specific, inline JS
+    - view_script = "app.views.#{params[:controller]}.#{params[:action].titlecase}"
+    %script $(function(){ if (typeof #{view_script} === "function") { new #{view_script}(); } });

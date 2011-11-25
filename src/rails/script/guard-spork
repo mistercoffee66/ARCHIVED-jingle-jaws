@@ -1,0 +1,7 @@
+#!/usr/bin/env bash
+
+echo "Resporking..."
+kill $(ps ax | grep bin/spork | grep -v grep | cut -d ' ' -f2)
+kill $(ps ax | grep bin/guard | grep -v grep | cut -d ' ' -f2)
+
+guard start &

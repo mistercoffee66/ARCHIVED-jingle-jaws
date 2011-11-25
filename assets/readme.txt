@@ -1,0 +1,1 @@
+Place wire-frames, designs or any other project assets in this folder.
