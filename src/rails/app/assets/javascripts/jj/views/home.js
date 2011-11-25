@@ -1,15 +1,15 @@
-goog.provide("app.views.home");
-goog.exportSymbol("app.views.home.Index");
+goog.provide("jj.views.home");
+goog.exportSymbol("jj.views.home.Index");
 
 /**
  * @constructor
  */
-app.views.home.Index = function() {
+jj.views.home.Index = function() {
 	this.bindControls();
 };
 
 // define our prototypes
-app.views.home.Index.prototype = {
+jj.views.home.Index.prototype = {
 	bindControls: function() {
 		var self = this;
 		$('#requestControl').click(function() {
