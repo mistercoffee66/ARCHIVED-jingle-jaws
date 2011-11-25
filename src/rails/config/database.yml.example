@@ -1,0 +1,37 @@
+development:
+  adapter: mysql2
+  encoding: utf8
+  database: jinglejaws_dev
+  pool: 5
+  username: jj
+  password: jj
+
+stage:
+  adapter: mysql2
+  encoding: utf8
+  database: jinglejaws_stage
+  pool: 5
+  username: jj
+  password: jj
+
+# Warning: The database defined as "test" will be erased and
+# re-generated from your development database when you run "rake".
+# Do not set this db to the same as development or production.
+test: &test
+  adapter: mysql2
+  encoding: utf8
+  database: jinglejaws_test
+  pool: 5
+  username: jj
+  password: jj
+
+production:
+  adapter: mysql2
+  encoding: utf8
+  database: jinglejaws_prod
+  pool: 5
+  username: jj
+  password: jj
+
+cucumber:
+  <<: *test
