@@ -6,6 +6,6 @@
 //
 //= require jquery_ujs
 
-goog.provide("jj");
+goog.provide("JJ");
 
-goog.require("jj.views.home");
+goog.require("JJ.views.home");

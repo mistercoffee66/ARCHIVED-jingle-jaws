@@ -26,7 +26,7 @@
       = render :partial=>"layouts/footer"
 
     = # CDN jQuery with robust failover from: http://blog.arkesystems.com/post/2010/08/Gotchas-when-loading-jquery-from-a-CDN.aspx
-    = javascript_include_tag "//ajax.googleapis.com/ajax/libs/jquery/1.6.4/jquery.min.js"
+    = javascript_include_tag "//ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js"
     %script if (typeof jQuery === 'undefined') {document.write(unescape("%3Cscript src='/javascripts/libs/jquery.min.js' type='text/javascript'%3E%3C/script%3E"));}
 
     = # No dep handling for Closure asset pipeline
@@ -39,5 +39,5 @@
     = javascript_include_tag :application
 
     = # Controller-specific, inline JS
-    - view_script = "jj.views.#{params[:controller]}.#{params[:action].titlecase}"
+    - view_script = "JJ.views.#{params[:controller]}.#{params[:action].titlecase}"
     %script $(function(){ if (typeof #{view_script} === "function") { new #{view_script}(); } });

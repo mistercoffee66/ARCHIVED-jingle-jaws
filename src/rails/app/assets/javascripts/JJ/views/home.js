@@ -1,19 +1,23 @@
-goog.provide("jj.views.home");
-goog.exportSymbol("jj.views.home.Index");
+goog.provide("JJ.views.home");
+goog.exportSymbol("JJ.views.home.Index");
+
+goog.require('JJ.managers.SocketManager');
 
 /**
  * @constructor
  */
-jj.views.home.Index = function() {
+JJ.views.home.Index = function() {
 	this.bindControls();
 };
 
 // define our prototypes
-jj.views.home.Index.prototype = {
+JJ.views.home.Index.prototype = {
 	bindControls: function() {
 		var self = this;
 		$('#requestControl').click(function() {
 			self.registerSocketListeners();
+
+			var socketManager = new jj.managers.SocketManager();
 		});
 	},
 
