@@ -5,10 +5,3 @@
 // the compiled file.
 //
 //= require jquery_ujs
-
-goog.provide("JJ");
-
-JJ.NODE_NAME = 'dev.jinglejaws.net';
-JJ.NODE_PORT = '1225';
-
-goog.require("JJ.views.home");

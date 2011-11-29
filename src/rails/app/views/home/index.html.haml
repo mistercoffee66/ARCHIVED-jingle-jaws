@@ -1,27 +1,37 @@
-%a#requestControl{:href=>'#'} Request Control
+-#%a#requestControl{:href=>'#'} Request Control
+-#
+-##queued.control-view
+-#  %div
+-#    There are
+-#    %span#queueLength
+-#    users ahead of you.
+-#
+-#  %div
+-#    You will have control of Jingle Jaws in
+-#    %span#queueTimeRemaining
+-#    seconds.
+-#
+-##activated.control-view
+-#  CHOMP! CHOMP! Fly that shark!
+-#  %div
+-#    Time's up in
+-#    %span#active
+-#    seconds.
+-#
+-#  %div
+-#    Drive controls:
+-#    %a.control{:href=>'#'}
+-#
+-#
+-##expired.control-view
+-#  Time's up!
 
-#queued.control-view
-  #div
-    There are
-    %span#queueLength
-    users ahead of you.
-
-  #div
-    You will have control of Jingle Jaws in
-    %span#queueTimeRemaining
-    seconds.
-
-#activated.control-view
-  CHOMP! CHOMP! Fly that shark!
-  %div
-    Time's up in
-    %span#active
-    seconds.
-
-  %div
-    Drive controls:
-    %a.control{:href=>'#'}
-
-
-#expired.control-view
-  Time's up!
+#main-wrap
+  #video-wrap
+  #header
+    #logo-wrap
+      #logo-jaws
+      #logo-jingle
+  #content
+    #sleigh
+    #shark
