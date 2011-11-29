@@ -36,4 +36,7 @@ Haml::Application.configure do
 
   # Print deprecation notices to the stderr
   config.active_support.deprecation = :stderr
+
+  # Override app constants
+  NODE_SERVER_NAME = 'test.jinglejaws.net'
 end

@@ -59,5 +59,9 @@ module Haml
       g.template_engine :haml
       g.test_framework :rspec, :fixture => true, :views => false
     end
+
+    # Define app constants
+    NODE_SERVER_NAME = '' # override in environment configs
+    NODE_SERVER_PORT = '1225'
   end
 end

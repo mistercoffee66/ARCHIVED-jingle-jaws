@@ -7,6 +7,7 @@ goog.require('JJ.managers.SocketManager');
  * @constructor
  */
 JJ.views.home.Index = function() {
+	this.sm = new JJ.managers.SocketManager();
 	this.bindControls();
 };
 
@@ -15,22 +16,26 @@ JJ.views.home.Index.prototype = {
 	bindControls: function() {
 		var self = this;
 		$('#requestControl').click(function() {
-			self.registerSocketListeners();
-
-			var socketManager = new jj.managers.SocketManager();
+			self.requestControl();
 		});
 	},
 
+	requestControl: function() {
+		this.resetView();
+		this.sm.reset();
+		this.registerSocketListeners();
+	},
+
+	resetView: function() {
+		$('.control-view').hide();
+	},
+
 	registerSocketListeners: function() {
-		this.socket = io.connect('http://dev.jinglejaws.net:1225');
-
-		// TODO: Handle reset if already connected
-
-		this.socket.on('requested', this.onRequested);
-		this.socket.on('queued', this.onQueued);
-		this.socket.on('activated', this.onActivated);
-		this.socket.on('active', this.onActive);
-		this.socket.on('expired', this.onExpired);
+		this.sm.socket.on('requested', this.onRequested);
+		this.sm.socket.on('queued', this.onQueued);
+		this.sm.socket.on('activated', this.onActivated);
+		this.sm.socket.on('active', this.onActive);
+		this.sm.socket.on('expired', this.onExpired);
 	},
 
 	onRequested: function (data) {
