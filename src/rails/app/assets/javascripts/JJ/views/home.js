@@ -1,5 +1,5 @@
 goog.provide("JJ.views.home");
-goog.exportSymbol("JJ.views.home.Index");
+goog.exportSymbol("JJ.views.home.Index"); // export view constructors so views can still consume them after minification
 
 goog.require('JJ.managers.SocketManager');
 
