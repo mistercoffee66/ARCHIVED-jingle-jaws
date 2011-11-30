@@ -40,5 +40,6 @@
     = javascript_include_tag :application
 
     = # Controller-specific, inline JS
-    - view_script = "JJ.views.#{params[:controller]}.#{params[:action].titlecase}"
-    %script $(function(){ if (typeof #{view_script} === "function") { new #{view_script}(); } });
+    - view_script_root = 'JJ.views'
+    - view_script = "#{view_script_root}.#{params[:controller]}.#{params[:action].titlecase}"
+    %script $(function(){ if (typeof #{view_script_root} !== 'undefined' && typeof #{view_script} === "function") { new #{view_script}(); } });
