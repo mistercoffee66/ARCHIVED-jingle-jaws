@@ -20,11 +20,10 @@
     = csrf_meta_tag
 
   %body
-    = yield
-    -##main
-    -#  = render :partial=>"layouts/header"
-    -#  = yield
-    -#  = render :partial=>"layouts/footer"
+    #main-wrap
+      = render :partial=>"layouts/header"
+      = yield
+      = render :partial=>"layouts/footer"
 
     = # CDN jQuery with robust failover from: http://blog.arkesystems.com/post/2010/08/Gotchas-when-loading-jquery-from-a-CDN.aspx
     = javascript_include_tag "//ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js"
