@@ -60,6 +60,7 @@ $videoWrapWidth: 566px;
 	height: $sharkHeight;
 	position: absolute;
 	bottom: 0;
+	z-index: 1;
 
 	#shark {
 		width: 257px;
@@ -100,6 +101,7 @@ $videoWrapWidth: 566px;
 	width: 100%;
 	position: absolute;
 	top: $headerHeight - 20px;
+	z-index: 2;
 
 	#sleigh {
 		width: 150px;
@@ -176,6 +178,8 @@ $videoWrapWidth: 566px;
 	width: 457px;
 	height: 133px;
 	margin: 0 auto;
+	position: relative;
+	z-index: 1225;
 
 	a {
 		width: 102px;
