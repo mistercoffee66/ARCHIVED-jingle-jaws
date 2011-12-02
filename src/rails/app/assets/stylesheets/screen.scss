@@ -7,7 +7,7 @@
 @mixin rounded($radius) {
 	border-radius: $radius;
 	-webkit-border-radius: $radius;
-	-mox-border-radius: $radius;
+	-moz-border-radius: $radius;
 }
 $headerHeight: 197px;
 $contentWidth: 997px;
@@ -163,7 +163,7 @@ $videoWrapWidth: 566px;
 			width: 68%;
 			height: 68%;
 			position: absolute;
-			top: 11%;
+			top: 6%;
 			left: 16%;
 			overflow: hidden;
 			@include rounded(50%);
