@@ -9,6 +9,14 @@
 	-webkit-border-radius: $radius;
 	-moz-border-radius: $radius;
 }
+@mixin flipHorizontal {
+    -moz-transform: scaleX(-1);
+    -o-transform: scaleX(-1);
+    -webkit-transform: scaleX(-1);
+    transform: scaleX(-1);
+    filter: FlipH;
+    -ms-filter: "FlipH";
+}
 $headerHeight: 197px;
 $contentWidth: 997px;
 $videoWrapWidth: 566px;
@@ -36,6 +44,8 @@ $videoWrapWidth: 566px;
 
 	.content-col {
 		position: absolute;
+		visibility: hidden;
+		opacity: 0;
 	}
 	#col-left {
 		width: 215px;
@@ -43,7 +53,7 @@ $videoWrapWidth: 566px;
 		background-color: #666;
 	}
 	#col-mid {
-		width: 100%;
+		/*width: 100%;*/
 		height: 100%;
 		top: -140;
 	}
@@ -56,9 +66,9 @@ $videoWrapWidth: 566px;
 
 /*some default states*/
 
-#video-wrap {
-	display: none;
-}
+/*#video-wrap {*/
+	/*visibility: hidden;*/
+/*}*/
 
 /*main moving elements*/
 
@@ -107,84 +117,60 @@ $videoWrapWidth: 566px;
 }
 #ticker {
 	width: 100%;
+	height: 45px;
 	position: absolute;
 	top: $headerHeight - 20px;
+	overflow: hidden;
 	z-index: 2;
 
 	#sleigh {
+		position: absolute;
 		width: 150px;
 		height: 45px;
-		margin: 0 auto;
 		@include JJbgImage(image-url("img-sleigh-ltr.png"));
+	}
+
+	#sleigh.flip {
+		@include JJbgImage(image-url("img-sleigh-rtl.png"));
+		width: auto;
+		padding-left: 150px;
+
+		#ticker-content {
+			height: 15px;
+			padding-top:10px;
+			overflow: hidden;
+			font: normal 15px/15px Arial;
+		}
 	}
 }
 
 /*content state (everything except splash)*/
 
-#main-wrap.content-state {
-	$sharkHeight: 160px;
-	$sharkWidth: 160px;
-	$sharkLeftMargin: 102px;
-	#header {
-		height: $headerHeight - 40px;
-		background-position: 0 -40px;
-	}
-	#logo-wrap {
-		width: 390px;
-		margin: 0 102px;
-	}
-	#tank {
-		height: $sharkHeight;
 
-		#shark {
-			height: $sharkHeight;
-			width: $sharkWidth;
-			margin: 0 0 0 $sharkLeftMargin;
-		}
-	}
-	#ticker {
-		width: 80%;
-		top: auto;
-		bottom: 10px;
-		left: $sharkWidth + $sharkLeftMargin;
-	}
-	#sleigh {
-		margin: 0;
-	}
 	#video-wrap {
 		display: block;
-		width: 74%;
+		width: 100%;
 		height: 100%;
 		margin: 0 auto;
 		position: relative;
-		/*background-color: #fff;*/
 
 		#viewport {
-			width: 68%;
-			height: 68%;
 			position: absolute;
-			top: 6%;
-			left: 16%;
 			overflow: hidden;
 			@include rounded(50%);
 
 			video {
 				width: 100%;
+				height: 75%;
 				position: relative;
-				top: 2%;
-				left: 7%;
 			}
 		}
 		#porthole {
-			width: 81%;
-			height: 92%;
 			margin: 0 auto;
 			position: relative;
 			top: 0;
 			@include JJbgImage(image-url("bg-porthole.png"));
 			background-size: 100% 200%;
-			/*background-color: #ccc;*/
-			/*display: none;*/
 		}
 	}
 	#controls {
@@ -226,7 +212,6 @@ $videoWrapWidth: 566px;
 		#dive {
 			background-position: -386px -16px;
 		}
-	}
 
 }
 
