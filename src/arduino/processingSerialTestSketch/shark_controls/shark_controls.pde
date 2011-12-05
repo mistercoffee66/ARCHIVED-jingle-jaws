@@ -65,10 +65,30 @@ void mousePressed() {
 	turnRight.clicked();
 	goUp.clicked();
 	goDown.clicked();
-	
-	
+
 }
 
 void mouseReleased(){
 	port.write('5');
 }
+
+void keyPressed() {
+	if (key == CODED) {
+		if (keyCode == LEFT) {
+			port.write('1');
+		} else if (keyCode == RIGHT) {
+			port.write('2');
+		}else if (keyCode == UP) {
+			port.write('3');
+		} else if (keyCode == DOWN) {
+			port.write('4');
+		} 
+	}
+}
+
+void keyReleased() {
+	//text("pressed over", 300, 300);
+	port.write('5');
+}
+
+

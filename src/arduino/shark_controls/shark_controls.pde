@@ -88,11 +88,21 @@ void calibrate(){
 
 void goForward(){
 	Serial.println("go forward");
-	
+	int de = 500;
+	//TODO:fix
+	delay(de);
 	turnRight();
-	delay(d);
+	delay(de);
 	turnLeft();
-	delay(d);
+	delay(de);
+	turnRight();
+	delay(de);
+	turnLeft();
+	delay(de);
+	turnRight();
+	delay(de);
+	turnLeft();
+	delay(de);
 }
 
 void turnLeft(){
