@@ -18,7 +18,8 @@ void setup() {
 }
 
 void loop() {
-
+	//calibrate();
+	
 	serialIn();
 	
 }
@@ -60,7 +61,7 @@ void serialIn() {
 }
 
 void calibrate(){
-/*
+
 	//calibration
 	digitalWrite(right, HIGH);
 	digitalWrite(left, LOW); 
@@ -81,14 +82,14 @@ void calibrate(){
 	digitalWrite(left, LOW); 
 	delay(600);
 	digitalWrite(right, LOW);
-*/
+
  
 }
 
 
 void goForward(){
 	Serial.println("go forward");
-	int de = 500;
+	int de = 1500;
 	//TODO:fix
 	delay(de);
 	turnRight();

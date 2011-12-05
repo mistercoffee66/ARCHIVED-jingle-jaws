@@ -73,17 +73,12 @@ void mouseReleased(){
 }
 
 void keyPressed() {
-	if (key == CODED) {
-		if (keyCode == LEFT) {
-			port.write('1');
-		} else if (keyCode == RIGHT) {
-			port.write('2');
-		}else if (keyCode == UP) {
-			port.write('3');
-		} else if (keyCode == DOWN) {
-			port.write('4');
-		} 
-	}
+	goForward.keyPress();
+	turnLeft.keyPress();
+	turnRight.keyPress();
+	goUp.keyPress();
+	goDown.keyPress();
+	
 }
 
 void keyReleased() {
