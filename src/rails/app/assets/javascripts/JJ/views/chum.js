@@ -15,44 +15,46 @@ JJ.views.chum.Index = function() {
 // define our prototypes
 JJ.views.chum.Index.prototype = {
 	initPresentation: function() {
-		this.mainWrap = $('#main-wrap');
-		this.videoWrap = $('#video-wrap');
-		this.porthole = $('#porthole');
-		this.viewport = $('#viewport');
-		this.colLeft = $('#col-left');
-		this.colRight = $('#col-right');
-		this.colMid = $('#col-mid');
-		this.controls = $('#controls');
-		this.logoWrap = $('#logo-wrap');
-		this.ticker = $('#ticker');
-		this.tank = $('#tank');
-		this.shark = $('#shark');
-		this.sleigh = $('#sleigh');
-		this.header = $('#header');
+		this._mainWrap = $('#main-wrap');
+		this._videoWrap = $('#video-wrap');
+		this._porthole = $('#porthole');
+		this._viewport = $('#viewport');
+		this._colLeft = $('#col-left');
+		this._colRight = $('#col-right');
+		this._colMid = $('#col-mid');
+		this._controls = $('#controls');
+		this._logoWrap = $('#logo-wrap');
+		this._ticker = $('#ticker');
+		this._tank = $('#tank');
+		this._shark = $('#shark');
+		this._sleigh = $('#sleigh');
+		this._header = $('#header');
 
-		$(this.mainWrap).show(1, $.proxy(this.setVideoSize, this));
-		$(window).resize($.proxy(this.setVideoSize));
-		$(JJ.logoWrap).click($.proxy(this.showContentState));
+		$(this._mainWrap).addClass('intro').show(1, $.proxy(this.setVideoSize, this));
+		$(window).resize($.proxy(this.setVideoSize, this));
+		$(this._logoWrap).click($.proxy(this.showContentState, this));
 	},
 	
 	setVideoSize: function() {
 		var wrapperDims = {
-				w: $(this.mainWrap).width(),
-				h: $(this.mainWrap).height()
+				w: $(this._mainWrap).width(),
+				h: $(this._mainWrap).height()
 			},
-			gutterWidth = $(this.colLeft).width() + $(this.colRight).width(),
+			gutterWidth = $(this._colLeft).width() + $(this._colRight).width(),
 			pAspectRatio = 1.148,
 			pDims = {},
 			vDims = {},
 			pMax = {};
 
-		this.center(JJ.logoWrap);
-		this.center(this.shark);
-		$(this.colMid).width(wrapperDims.w - gutterWidth);
-		$(this.colMid).filter('.intro').css('top', wrapperDims.h);
-		this.center(this.colMid);
+		if ($(this._mainWrap).hasClass('intro')) {
+            this.center(this._logoWrap);
+            this.center(this._shark);
+            this.center(this._sleigh);
+            $(this._colMid).css('top', wrapperDims.h);
+        }
 
-		this.center(this.sleigh);
+		$(this._colMid).width(wrapperDims.w - gutterWidth);
+		this.center(this._colMid);
 		
 		pMax.w = wrapperDims.w - gutterWidth;
 		pMax.h = wrapperDims.h - 80;
@@ -71,21 +73,21 @@ JJ.views.chum.Index.prototype = {
 
 		JJ.log(pDims);
 
-		$(this.porthole).width(pDims.w);
-		$(this.porthole).height(pDims.h);
-		$(this.videoWrap).height(pDims.h);
-		$(this.controls).css('top', pDims.h * -.15);
+		$(this._porthole).width(pDims.w);
+		$(this._porthole).height(pDims.h);
+		$(this._videoWrap).height(pDims.h);
+		$(this._controls).css('top', pDims.h * -.15);
 
 		vDims.w = pDims.w * .84;
 		vDims.h = pDims.w * .84;
 		vDims.t = pDims.w * .12;
 
-		$(this.viewport).css({
+		$(this._viewport).css({
 			width: vDims.w,
 			height: vDims.h
 		});
 
-		this.center(this.viewport);
+		this.center(this._viewport);
 		this.center($('video'), 'vertical');
 
 	},
@@ -101,23 +103,23 @@ JJ.views.chum.Index.prototype = {
 	},
 
 	showContentState: function() {
-		$(this.sleigh).animate({
-			left: $(this.ticker).width() + 150
+		$(this._sleigh).animate({
+			left: $(this._ticker).width() + 150
 		}, 1000, function() {
 
-			$(JJ.logoWrap).animate({
+			$(this._logoWrap).animate({
 				width: 390,
 				left: 102
 			}, 500, function(){
-				$(this.header).animate({
+				$(this._header).animate({
 					height: 157
 				});
 
-				$(this.tank).animate({
+				$(this._tank).animate({
 					height: 160
 				}, 500);
 
-				$(this.shark).animate({
+				$(this._shark).animate({
 					height: 160,
 					width: 160,
 					left: 102
@@ -126,7 +128,7 @@ JJ.views.chum.Index.prototype = {
 					$('#col-mid.intro').removeClass('intro').animate({
 						top: -140
 					});
-					$(this.ticker).css({
+					$(this._ticker).css({
 						width: '80%',
 						top: 'auto',
 						bottom: 10,
@@ -140,7 +142,7 @@ JJ.views.chum.Index.prototype = {
 
 	doTicker: function() {
 		$('#ticker-content').html('Well, shake it up, baby, now, (shake it up, baby) Twist and shout. (twist and shout) Cmon cmon, cmon, cmon, baby, now, (come on baby) Come on and work it on out. (work it on out)');
-		$(this.sleigh).addClass('flip').animate({
+		$(this._sleigh).addClass('flip').animate({
 			left: -150
 		}, 10000);
 	},

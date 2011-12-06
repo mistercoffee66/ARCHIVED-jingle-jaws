@@ -1,0 +1,195 @@
+<!--TODO integrate this into main codebase instead of doing iframe-->
+
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
+<HTML>
+<HEAD>
+
+<meta name="description" content="WVC80N">
+<meta http-equiv="Content-Type" content="text/html; charset=windows-1252">
+<META http-equiv="Pragma" CONTENT="no-cache"> 
+<META HTTP-EQUIV="Cache-Control" CONTENT="no-cache">	
+<meta HTTP-EQUIV="Expires" CONTENT="Mon, 06 Jan 1990 00:00:01 GMT"> 
+
+<script language="JavaScript" type="text/javascript" src="http://10.29.47.195/language.cgi"></script>
+<script language="JavaScript" type="text/javascript" src="http://10.29.47.195/stdlib.js"></script>
+<script language="JavaScript" type="text/javascript" src="http://10.29.47.195/message.cgi"></script>
+<script language="JavaScript" type="text/javascript" src="http://10.29.47.195/ver_activex.js"></script>
+
+<script language="JavaScript" type="text/javascript">
+<!-- Start Script
+
+function init()
+{ set_Video(); }
+
+function set_Video()
+{
+	var cf = document.forms[0];
+	var vs = document.getElementById("v_play");
+
+	if (vmode != "")
+	{
+		vs.style.display = "block";
+	}
+	else
+	{
+		vs.style.display = "none";
+	}
+}
+
+/* OCX Video init */
+var vmode = "mpeg"; // "";    // mpeg, jpeg, 
+var ipadd = '10.29.47.195:80';         // '172.31.2.125'
+//var ipadd = '10.29.47.195:1024';         // '172.31.2.125'
+var lpp = '';          // 'YWRtaW46YWRtaW4='
+var lang_str ="USA";
+var brow;
+if(isIE()) { var brow = "IE"; }
+if(isNS()) { var brow = "MZ"; }
+
+if (self.location.protocol != "http:")
+{
+    if (ipadd.indexOf(":") > 0)
+    {
+        ipadd = ipadd.substring(0, ipadd.indexOf(":"));
+    }
+}
+else
+{
+    var temp = ipadd;
+    var count = 0;
+    var index = 0;
+    do
+    {
+        //alert("temp="+temp);
+        index = temp.indexOf(":");
+        if (index <= 0)
+        {
+            break;
+        }
+        
+        count ++;
+        temp = temp.substring(index+1);
+    }while (index > 0);
+
+    if (count >= 2) // ipv6
+    {
+        ipadd = "[" + ipadd +"]";
+    }
+    //alert("ipadd="+ipadd+", count="+count);
+}
+    
+var dw_jpeg = 	'<object classid="'+viewer_ocx_classid+'" CODEBASE="'+viewer_ocx_codebase+'" id="'+viewer_ocx_id+'" width="640" height="524">'+
+				  '<param name="Text" value="http://'+
+				  ipadd+
+				  '/img/mjpeg.cgi'+
+				  ' '+
+				  lpp+
+				  ' '+
+				  brow+
+				  ' '+
+				  lang_str+
+				  '">' + 
+				  '<param name="BackColor" value="12632256">'+
+				  '<param name="_Version" value="65536">'+
+				  '<param name="_ExtentX" value="11774">'+
+				  '<param name="_ExtentY" value="6562">'+
+				'</object>';
+
+//var dw_mpeg = '&nbsp;';
+var dw_mpeg = 	'<object classid="'+viewer_ocx_classid+'" CODEBASE="'+viewer_ocx_codebase+'" id="'+viewer_ocx_id+'" width="100%" height="75%">'+
+				  '<param name="Text" value="http://'+
+				  ipadd+
+				  '/img/video.asf'+
+				  ' '+
+				  lpp+
+				  ' '+
+				  brow+
+				  ' '+
+				  lang_str+
+				  '">' + 				  
+				  '<param name="BackColor" value="12632256">'+
+				  '<param name="_Version" value="65536">'+
+				  '<param name="_ExtentX" value="11774">'+
+				  '<param name="_ExtentY" value="6562">'+
+				'</object>';
+    
+var dw_push = 	'<img border="0" alt="Video for other Platform/OS" src="http://10.29.47.195/img/video.mjpeg">';
+
+function dw(message)
+{ document.write(message); }
+
+
+function doPlay() 
+{
+	if(vmode != "")
+	{
+		if(isWin())
+		{
+			if(isIE())
+			{
+				if( vmode == "jpeg" )
+				{ dw(dw_jpeg); }
+				else
+				{ dw(dw_mpeg); } 
+			}
+			else
+			{
+				dw(dw_push); 
+			}
+		}
+		else
+		{
+			dw(dw_push); 
+		}
+	}
+	else return false; 
+}
+/* OCX Video End */
+
+
+var is_auto_reload = true;
+function reloadOnErr(obj) {
+	if(!is_auto_reload)
+		return;
+	setTimeout("eval('obj.src = obj.src;'", 500);
+}
+
+// Admin
+var is_admin = false; // set by init()
+function chkAdmin()
+{
+	if(!is_admin)
+		return confirm(msg_admin_config);
+	else
+		return true;
+}
+
+function doStop() 
+{	
+ 	if(isIE())
+	{
+		document.LinksysMLViewer.StopPlay(); 
+	}
+}
+// End Script -->
+</script>
+<style>
+	#live-cam {width: 100%; height: 100%;}
+	#live-cam img {width: 100%; height: 100%;}
+
+</style>
+</head>
+
+<body onbeforeunload="doStop();" onLoad="init();">
+<form name="dummy" method="post" action="http://10.29.47.195/adm/file.cgi" onSubmit="return false">
+<div id="live-cam">
+<script language="javascript" type="text/javascript">doPlay();</script>
+</div>
+<input type="hidden" name="todo" value="connect">
+<input type="hidden" name="h_authorization" value="">  <!-- YWRtaW46YWRtaW4= -->
+
+</form>
+
+<script> var msgVar=""; </script>
+</body>
+</html>

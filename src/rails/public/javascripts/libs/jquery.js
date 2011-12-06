@@ -4509,7 +4509,7 @@ var Expr = Sizzle.selectors = {
 			return !!Sizzle( match[3], elem ).length;
 		},
 
-		header: function( elem ) {
+		_header: function( elem ) {
 			return (/h\d/i).test( elem.nodeName );
 		},
 
