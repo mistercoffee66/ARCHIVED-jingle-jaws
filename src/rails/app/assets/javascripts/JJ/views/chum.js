@@ -23,16 +23,16 @@ JJ.views.chum.Index.prototype = {
 		this.colRight = $('#col-right');
 		this.colMid = $('#col-mid');
 		this.controls = $('#controls');
-		JJ.logoWrap = $('#logo-wrap');
+		this.logoWrap = $('#logo-wrap');
 		this.ticker = $('#ticker');
 		this.tank = $('#tank');
 		this.shark = $('#shark');
 		this.sleigh = $('#sleigh');
 		this.header = $('#header');
 
-		$(this.mainWrap).show(1, this.setVideoSize);
-		$(window).resize(this.setVideoSize);
-		$(JJ.logoWrap).click(this.showContentState);
+		$(this.mainWrap).show(1, $.proxy(this.setVideoSize, this));
+		$(window).resize($.proxy(this.setVideoSize));
+		$(JJ.logoWrap).click($.proxy(this.showContentState));
 	},
 	
 	setVideoSize: function() {

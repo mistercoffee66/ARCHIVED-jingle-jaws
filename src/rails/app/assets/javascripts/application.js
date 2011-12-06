@@ -21,4 +21,3 @@ JJ.log = function(msg) {
 
 // Require any other entry points into the app
 goog.require('JJ/views/chum');
-
