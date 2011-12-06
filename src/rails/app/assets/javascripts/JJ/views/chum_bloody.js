@@ -1,8 +1,11 @@
+/*
 console.log('chum');
 
+*/
 /**
  * @fileOverview animations presentation for jinglejaws
- */
+ *//*
+
 
 var CHUM = CHUM ||
 
@@ -166,4 +169,4 @@ var CHUM = CHUM ||
 	}
 };
 
-$(CHUM.init);
+$(CHUM.init);*/
