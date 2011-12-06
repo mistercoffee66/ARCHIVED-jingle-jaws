@@ -1,3 +1,5 @@
+console.log('chum');
+
 /**
  * @fileOverview animations presentation for jinglejaws
  */
@@ -8,7 +10,7 @@ var CHUM = CHUM ||
 	global:
 		function() {
 			return {
-				_devMode: true,
+				_devMode: false,
 				_mainWrap: $('#main-wrap'),
 				_videoWrap: $('#video-wrap'),
 				_porthole: $('#porthole'),
@@ -28,8 +30,8 @@ var CHUM = CHUM ||
 
 	init: function() {
 
-		$(CHUM.log);
-		$(CHUM.setVideoSize);
+		CHUM.log();
+		$(CHUM.global._mainWrap).show(1, CHUM.setVideoSize);
 		$(window).resize(CHUM.setVideoSize);
 		$(CHUM.global._logoWrap).click(CHUM.showContentState);
 	},
@@ -47,7 +49,10 @@ var CHUM = CHUM ||
 			pMax = {};
 
 
+		CHUM.center(CHUM.global._logoWrap);
+		CHUM.center(CHUM.global._shark);
 		$(CHUM.global._colMid).width(wrapperDims.w - gutterWidth);
+		$(CHUM.global._colMid).filter('.intro').css('top', wrapperDims.h);
 		CHUM.center(CHUM.global._colMid);
 
 		CHUM.center(CHUM.global._sleigh);
@@ -103,33 +108,30 @@ var CHUM = CHUM ||
 	showContentState: function() {
 
 
-
 		$(CHUM.global._sleigh).animate({
 			left: $(CHUM.global._ticker).width() + 150
-		}, 2000, function() {
+		}, 1000, function() {
 
 			$(CHUM.global._logoWrap).animate({
 				width: 390,
-				marginLeft: 102
-			}, 1000, function(){
-				$(CHUM.global._header).css({
-					height: 157,
-					backgroundPosition: '0 -40px'
+				left: 102
+			}, 500, function(){
+				$(CHUM.global._header).animate({
+					height: 157
 				});
 
 				$(CHUM.global._tank).animate({
 					height: 160
-				}, 1000);
+				}, 500);
 
 				$(CHUM.global._shark).animate({
 					height: 160,
 					width: 160,
-					marginLeft: 102
-				}, 1000, function(){
+					left: 102
+				}, 500, function(){
 
-					$('.content-col').css({
-						visibility: 'visible',
-						opacity: 1
+					$('#col-mid.intro').removeClass('intro').animate({
+						top: -140
 					});
 					$(CHUM.global._ticker).css({
 						width: '80%',
