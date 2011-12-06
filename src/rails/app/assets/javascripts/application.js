@@ -6,7 +6,7 @@
 //
 //= require jquery_ujs
 
-// Define everything in our parent namespace.  These will effectively be our "globals", access via the JJ namespace.
+// Define everything in our parent namespace.  These will effectively be our "globals", accessed via the JJ namespace.
 goog.provide('JJ');
 
 JJ.NODE_NAME = 'dev.jinglejaws.net';
@@ -20,4 +20,4 @@ JJ.log = function(msg) {
 };
 
 // Require any other entry points into the app
-goog.require('JJ/views/chum');
+goog.require('JJ.views.chum');

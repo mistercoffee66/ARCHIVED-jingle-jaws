@@ -30,7 +30,7 @@
     %script if (typeof jQuery === 'undefined') {document.write(unescape("%3Cscript src='/javascripts/libs/jquery.min.js' type='text/javascript'%3E%3C/script%3E"));}
 
     = # No dep handling for Closure asset pipeline
-    %script var CLOSURE_NO_DEPS = true;
+    %script CLOSURE_NO_DEPS = true;
 
     = # Load socket.io client JS from Node on a festive port
     = javascript_include_tag 'http://dev.jinglejaws.net:1225/socket.io/socket.io.js'
