@@ -103,38 +103,42 @@ JJ.views.chum.Index.prototype = {
 	},
 
 	showContentState: function() {
-		$(this._sleigh).animate({
+
+        var self = this;
+
+        $(this._sleigh).animate({
 			left: $(this._ticker).width() + 150
 		}, 1000, function() {
-
-			$(this._logoWrap).animate({
+            JJ.log('done');
+			$(self._logoWrap).animate({
 				width: 390,
 				left: 102
 			}, 500, function(){
-				$(this._header).animate({
+				$(self._header).animate({
 					height: 157
 				});
 
-				$(this._tank).animate({
+				$(self._tank).animate({
 					height: 160
 				}, 500);
 
-				$(this._shark).animate({
+				$(self._shark).animate({
 					height: 160,
 					width: 160,
 					left: 102
 				}, 500, function(){
 
-					$('#col-mid.intro').removeClass('intro').animate({
+					$('.intro #col-mid').animate({
 						top: -140
 					});
-					$(this._ticker).css({
+					$(self._ticker).css({
 						width: '80%',
 						top: 'auto',
 						bottom: 10,
 						left: 262
 					});
-					this.doTicker();
+					self.doTicker();
+                    $(self._mainWrap).removeClass('intro');
 				});
 			});
 		});
