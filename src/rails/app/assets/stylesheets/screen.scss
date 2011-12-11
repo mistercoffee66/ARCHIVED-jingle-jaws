@@ -24,7 +24,7 @@ $videoWrapWidth: 566px;
 /*basic layout*/
 
 body {
-	background: #d5e2f8 image-url("bg-main-grad.jpg") repeat-y center;
+	background-color: #000;
 }
 
 #main-wrap {
@@ -35,13 +35,19 @@ body {
 	min-height: 600px;
 	position: relative;
 	overflow: hidden;
-	/*background: #d5e2f8 image-url("bg-main-grad.jpg") repeat-y center;*/
+	background: #d5e2f8 image-url("bg-main-grad.jpg") repeat-y center;
+}
+#main-wrap.splash {
+    opacity: 0;
 }
 #header {
 	width: 100%;
 	height: $headerHeight;
-	@include JJbgImage(image-url("bg-trees-tile.jpg"), repeat-x);
-	background-position: bottom;
+	@include JJbgImage(image-url("bg-trees-tile.png"), repeat-x);
+	background-position: top;
+}
+.splash #header {
+    background-position: bottom;
 }
 #content {
 	width: 100%;
@@ -87,12 +93,18 @@ body {
 	z-index: 1;
 
 	#shark {
-		width: 257px;
+        width: 257px;
 		height: $sharkHeight;
 		position: absolute;
 		@include JJbgImage(image-url("img-bruce.png"));
-		background-size: contain;
+		background-size: 100%;
 	}
+}
+.splash #tank {
+    #shark {
+        bottom: -326px;
+        background-position: bottom;
+    }
 }
 #logo-wrap {
 	display: block;
@@ -109,9 +121,10 @@ body {
 		bottom: 0;
 		@include JJbgImage(image-url("txt-jaws.png"));
 		background-size: contain;
+        background-position: center;
 	}
 	#logo-jingle {
-		width: 46%;
+        width: 46%;
 		height: 75%;
 		position: absolute;
 		left: 0;
@@ -120,6 +133,15 @@ body {
 		background-size: contain;
 	}
 }
+.splash #logo-wrap {
+    #logo-jaws {
+        height: 0;
+    }
+    #logo-jingle {
+        display: none;
+    }
+}
+
 #ticker {
 	width: 100%;
 	height: 45px;
@@ -133,6 +155,7 @@ body {
 		width: 150px;
 		height: 45px;
 		@include JJbgImage(image-url("img-sleigh-ltr.png"));
+        display: none;
 	}
 
 	#sleigh.flip {

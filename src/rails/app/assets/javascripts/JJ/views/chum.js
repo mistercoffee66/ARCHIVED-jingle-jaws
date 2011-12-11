@@ -29,8 +29,10 @@ JJ.views.chum.Index.prototype = {
 		this._shark = $('#shark');
 		this._sleigh = $('#sleigh');
 		this._header = $('#header');
+        this._durationFactor = 1;
 
-		$(this._mainWrap).addClass('intro').show(1, $.proxy(this.setVideoSize, this));
+		$(this._mainWrap).addClass('intro splash').show(1, $.proxy(this.setVideoSize, this));
+        this.doSplash();
 		$(window).resize($.proxy(this.setVideoSize, this));
 		$(this._logoWrap).click($.proxy(this.showContentState, this));
 	},
@@ -92,6 +94,27 @@ JJ.views.chum.Index.prototype = {
 
 	},
 
+    doSplash: function() {
+
+        var self = this;
+
+        document.getElementById('theme').play();
+        $(this._mainWrap).animate({
+            opacity : 1
+        }, 6000*self._durationFactor, function(){
+            $(self._shark).animate({
+                bottom: 0
+            }, 6000*self._durationFactor, function(){
+              $('#logo-jaws').animate({
+                  height: '80%'
+              }, 6000*self._durationFactor, function(){
+                  $(self._mainWrap).removeClass('splash');
+                  self.showContentState();
+              });
+            });
+        });
+    },
+
 	center: function(ele, dim, context) {
 		context = context || $(ele).parent();
 		dim = dim || 'horizontal';
@@ -106,7 +129,7 @@ JJ.views.chum.Index.prototype = {
 
         var self = this;
 
-        $(this._sleigh).animate({
+        $(this._sleigh).delay(2000*self._durationFactor).animate({
 			left: $(this._ticker).width() + 150
 		}, 1000, function() {
             JJ.log('done');
