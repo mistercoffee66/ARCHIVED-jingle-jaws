@@ -14,8 +14,10 @@ JJ.views.chum.Index = function() {
 
 // define our prototypes
 JJ.views.chum.Index.prototype = {
-	initPresentation: function() {
-		this._mainWrap = $('#main-wrap');
+
+    initPresentation: function() {
+		var self = this;
+        this._mainWrap = $('#main-wrap');
 		this._videoWrap = $('#video-wrap');
 		this._porthole = $('#porthole');
 		this._viewport = $('#viewport');
@@ -29,13 +31,61 @@ JJ.views.chum.Index.prototype = {
 		this._shark = $('#shark');
 		this._sleigh = $('#sleigh');
 		this._header = $('#header');
-        this._durationFactor = 1;
+        this._durationFactor = .88;
+        this._theme = document.getElementById('theme');
+        this._preLoad = $.Deferred();
 
-		$(this._mainWrap).addClass('intro splash').show(1, $.proxy(this.setVideoSize, this));
-        this.doSplash();
-		$(window).resize($.proxy(this.setVideoSize, this));
-		$(this._logoWrap).click($.proxy(this.showContentState, this));
+		this.preLoadMedia();
+        this._preLoad.done(function(){
+            $(self._mainWrap).addClass('intro splash').show(1, $.proxy(self.setVideoSize, self));
+            self.doSplash();
+            $(window).resize($.proxy(self.setVideoSize, self));
+            $(self._logoWrap).click($.proxy(self.showContentState, self));
+        });
 	},
+
+    preLoadMedia: function() {
+
+        var self = this,
+            audioEl = document.createElement('audio'),
+            audioType,
+            media,
+            i = 0;
+        
+        if (!!audioEl.canPlayType && audioEl.canPlayType('audio/ogg; codecs="vorbis"')) {
+            audioType = '.ogg';
+        }
+        else if (!!audioEl.canPlayType && audioEl.canPlayType('audio/mpeg')) {
+            audioType = '.mp3';
+        }
+
+        media = [
+            '/audio/jinglejaws' + audioType,
+            '/assets/bg-main-grad.jpg',
+            '/assets/bg-trees-tile.png',
+            '/assets/img-bruce.png',
+            '/assets/img-sleigh-ltr.png',
+            '/assets/txt-jaws.png',
+            '/assets/txt-jingle.png'
+        ];
+
+        loader();
+
+        function loader() {
+           $(window).load(media[i], function() {
+               JJ.log(media[i]);
+               i++;
+               if ( i < media.length) {
+                   loader();
+               }
+               else {
+                    $(self._theme).attr('src', '/audio/jinglejaws' + audioType);
+                    self._preLoad.resolve();
+               }
+            });
+        }
+
+    },
 	
 	setVideoSize: function() {
 		var wrapperDims = {
@@ -98,7 +148,7 @@ JJ.views.chum.Index.prototype = {
 
         var self = this;
 
-        document.getElementById('theme').play();
+        self._theme.play();
         $(this._mainWrap).animate({
             opacity : 1
         }, 6000*self._durationFactor, function(){
