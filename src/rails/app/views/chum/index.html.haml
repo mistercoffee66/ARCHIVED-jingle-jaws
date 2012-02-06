@@ -1,6 +1,5 @@
 #browserMsg use chrome or safari!
 #content
-  #swimmer
   #col-left.content-col
     %h2 take me for a spin!
     %input#userName(type="text")
@@ -12,7 +11,7 @@
       %span X:XX
   #col-mid.content-col
     #video-wrap
-      -#%iframe#video(src="/cam_frame.html" frameborder="0" scrolling="no")
+      %iframe#video(src="/cam_frame.html" frameborder="0" scrolling="no")
     #controls
       %a#rise.mini.ir rise
       %a#left.ir left
@@ -24,3 +23,4 @@
     %textarea#userMsg
     #submitMsg.btn Speak
   %audio#theme
+#swimmer
