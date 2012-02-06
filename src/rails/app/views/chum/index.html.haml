@@ -1,45 +1,26 @@
-/
-  %a#requestControl{:href=>'#'} Request Control
-
-  #queued.control-view
-    %div
-      There are
-      %span#queueLength
-      users ahead of you.
-
-    %div
-      You will have control of Jingle Jaws in
-      %span#queueTimeRemaining
-      seconds.
-
-  #activated.control-view
-    CHOMP! CHOMP! Fly that shark!
-    %div
-      Time's up in
-      %span#active
-      seconds.
-
-    %div
-      Drive controls:
-      %a.control{:href=>'#'}
-
-
-  #expired.control-view
-    Time's up!
-
-
+#browserMsg use chrome or safari!
 #content
+  #swimmer
+  #col-left.content-col
+    %h2 take me for a spin!
+    %input#userName(type="text")
+    #enter.btn Enter Queue
+    #statusMsg
+      There are currently
+      %span X
+      guppies in the queue. Your approximate wait time is
+      %span X:XX
   #col-mid.content-col
     #video-wrap
-      #viewport
-        %iframe#video(src="/cam_frame.html" frameborder="0" scrolling="no")
-      #porthole
+      -#%iframe#video(src="/cam_frame.html" frameborder="0" scrolling="no")
     #controls
       %a#rise.mini.ir rise
       %a#left.ir left
       %a#straight.ir straight
       %a#right.ir right
       %a#dive.mini.ir dive
-  #col-left.content-col.intro left
-  #col-right.content-col.intro right
+  #col-right.content-col
+    %h2 let me whisper sweet nothings in your ear!
+    %textarea#userMsg
+    #submitMsg.btn Speak
   %audio#theme

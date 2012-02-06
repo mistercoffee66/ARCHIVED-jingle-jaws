@@ -10,10 +10,10 @@
 <META HTTP-EQUIV="Cache-Control" CONTENT="no-cache">	
 <meta HTTP-EQUIV="Expires" CONTENT="Mon, 06 Jan 1990 00:00:01 GMT"> 
 
-<script language="JavaScript" type="text/javascript" src="http://10.29.47.195/language.cgi"></script>
-<script language="JavaScript" type="text/javascript" src="http://10.29.47.195/stdlib.js"></script>
-<script language="JavaScript" type="text/javascript" src="http://10.29.47.195/message.cgi"></script>
-<script language="JavaScript" type="text/javascript" src="http://10.29.47.195/ver_activex.js"></script>
+<script language="JavaScript" type="text/javascript" src="http://10.29.47.63:1024/language.cgi"></script>
+<script language="JavaScript" type="text/javascript" src="http://10.29.47.63:1024/stdlib.js"></script>
+<script language="JavaScript" type="text/javascript" src="http://10.29.47.63:1024/message.cgi"></script>
+<script language="JavaScript" type="text/javascript" src="http://10.29.47.63:1024/ver_activex.js"></script>
 
 <script language="JavaScript" type="text/javascript">
 
@@ -37,7 +37,7 @@ function set_Video()
 
 /* OCX Video init */
 var vmode = "mpeg"; // "";    // mpeg, jpeg, 
-var ipadd = '10.29.47.195:80';         // '172.31.2.125'
+var ipadd = '10.29.47.63:1024';         // '172.31.2.125'
 //var ipadd = '10.29.47.195:1024';         // '172.31.2.125'
 var lpp = '';          // 'YWRtaW46YWRtaW4='
 var lang_str ="USA";
@@ -112,7 +112,7 @@ var dw_mpeg = 	'<object classid="'+viewer_ocx_classid+'" CODEBASE="'+viewer_ocx_
 				  '<param name="_ExtentY" value="6562">'+
 				'</object>';
     
-var dw_push = 	'<img border="0" alt="Video for other Platform/OS" src="http://10.29.47.195/img/video.mjpeg">';
+var dw_push = 	'<img border="0" alt="Video for other Platform/OS" src="http://10.29.47.63:1024/img/video.mjpeg">';
 
 function dw(message)
 { document.write(message); }
@@ -172,15 +172,15 @@ function doStop()
 }
 // End Script -->
 </script>
-<style>
-	#live-cam {width: 100%; height: 100%;}
+<style type="text/css">
+    #live-cam {width: 100%; height: 100%;}
 	#live-cam img {width: 100%; height: 100%;}
 
 </style>
 </head>
 
 <body onbeforeunload="doStop();" onLoad="init();">
-<form name="dummy" method="post" action="http://10.29.47.195/adm/file.cgi" onSubmit="return false">
+<form name="dummy" method="post" action="http://10.29.47.63:1024/adm/file.cgi" onSubmit="return false">
 <div id="live-cam">
 <script language="javascript" type="text/javascript">doPlay();</script>
 </div>
@@ -189,6 +189,8 @@ function doStop()
 
 </form>
 
-<script> var msgVar=""; </script>
+<script type="text/javascript">
+    var msgVar="";
+</script>
 </body>
 </html>
