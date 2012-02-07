@@ -1,4 +1,3 @@
-console.log('foo');
 goog.provide("JJ.views.chum");
 goog.exportSymbol("JJ.views.chum.Index"); // export view constructors so views can still consume them after minification
 
@@ -9,7 +8,6 @@ goog.require('JJ.managers.SocketManager');
  */
 JJ.views.chum.Index = function() {
     JJ.log('initPresentation');
-    console.log('bar');
     this.initPresentation();
 	this.initServerEvents();
 	this.initClientEvents();
@@ -31,24 +29,42 @@ JJ.views.chum.Index.prototype = {
         this._theme = document.getElementById('theme');
         this._preLoad = $.Deferred();
 
-        $(self._mainWrap).addClass('loading');
-        this.preLoadMedia();
-        this._preLoad.done(function(){
 
-            // enable various clicks to turn on classes for testing
-//            $(self._mainWrap).removeClass('loading').addClass('intro');
-//            $(self._mainWrap).click(function() {
-//                $(this).addClass('splash');
-//            });
-//            $(self._header).click(function() {
-//                $(self._mainWrap).addClass('add-theme');
-//            });
+        if (this.noSharkForYou()) {
+            $(self._mainWrap).addClass('no-support');
+        }
 
-            self.setVideoSize();
-            $(window).resize($.proxy(self.setVideoSize, self));
-            $(self._logoWrap).click($.proxy(self.showContentState, self));
-        });
+        else {
+
+            $(self._mainWrap).addClass('loading');
+            this.preLoadMedia();
+            this._preLoad.done(function(){
+
+                // enable various clicks to turn on classes for testing
+                $(self._mainWrap).removeClass('loading').addClass('intro');
+                $(self._mainWrap).click(function() {
+                    $(this).addClass('splash');
+                });
+                $('#header').click(function() {
+                    $(self._mainWrap).addClass('add-theme');
+                });
+                $('#tank').click(function() {
+                    $(self._mainWrap).attr('class', '');
+                    self.setVideoSize();
+                });
+
+                $(window).resize($.proxy(self.setVideoSize, self));
+                $(self._logoWrap).click($.proxy(self.showContentState, self));
+            });
+
+        }
 	},
+
+    noSharkForYou: function() {
+
+        return navigator.userAgent.search(/applewebkit/gi) == -1;
+
+    },
 
     preLoadMedia: function() {
 

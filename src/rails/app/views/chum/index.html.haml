@@ -1,8 +1,8 @@
-#browserMsg use chrome or safari!
+#browserMsg use Chrome or Safari
 #content
   #col-left.content-col
     %h2 take me for a spin!
-    %input#userName(type="text")
+    %input#userName(type="text" value="enter name")
     #enter.btn Enter Queue
     #statusMsg
       There are currently
@@ -12,6 +12,7 @@
   #col-mid.content-col
     #video-wrap
       %iframe#video(src="/cam_frame.html" frameborder="0" scrolling="no")
+      #video-frame
     #controls
       %a#rise.mini.ir rise
       %a#left.ir left
@@ -20,7 +21,7 @@
       %a#dive.mini.ir dive
   #col-right.content-col
     %h2 let me whisper sweet nothings in your ear!
-    %textarea#userMsg
+    %textarea#userMsg type your Valentine message
     #submitMsg.btn Speak
   %audio#theme
 #swimmer

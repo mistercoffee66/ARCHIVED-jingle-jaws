@@ -35,6 +35,7 @@ $animationFactor: 1;
 $headerHeight: 197px;
 $contentWidth: 997px;
 $videoWrapWidth: 566px;
+$animationDuration: 1s; /* this also gets different values in different contexts */
 
 /*basic layout*/
 
@@ -73,8 +74,8 @@ body {
 		/*position: relative;*/
 	}
 	#col-left, #col-right {
-        width: 270px;
-        padding: 15px;
+        width: 240px;
+        padding: 15px 30px;
         text-align: center;
 	}
 	#col-mid {
@@ -89,12 +90,33 @@ body {
         font: normal 34px/28px DynalightRegular;
         color: #000;
     }
+    input, textarea {
+        width: 80%;
+        border: solid 6px pink;
+        -webkit-border-radius: 4px;
+        font: bold italic 24px/30px Times, serif;
+        color: #999;
+        text-align: center;
+    }
+    input {
+        height: 45px;
+        padding: 6px;
+
+    }
+    textarea {
+        height: 120px;
+        padding: 5px;
+    }
 }
 
 /*main states for using the site*/
 
 #main-wrap #browserMsg {
     display: none;
+    margin: 0 auto;
+    font: normal 24px DynalightRegular, Times, serif;
+    color: #ffc0cb;
+    text-align: center;
 }
 
 #tank {
@@ -104,6 +126,9 @@ body {
 	bottom: 0;
     left: 2%;
 	z-index: 1;
+    -webkit-transition-property: all;
+    -webkit-transition-duration: $animationDuration;
+    -webkit-animation-timing-function: linear;
 
 	#shark {
         width: 100%;
@@ -119,6 +144,9 @@ body {
 	position: relative;
     top: 10%;
     left: 20px;
+    -webkit-transition-property: all;
+    -webkit-transition-duration: $animationDuration;
+    -webkit-animation-timing-function: linear;
 
 	#logo-jaws {
 		width: 100%;
@@ -145,7 +173,7 @@ body {
 
 #swimmer {
     position: relative;
-    top: -102%;
+    top: -100%;
     width: 225px;
     height: 64px;
     margin: 0 auto;
@@ -158,8 +186,10 @@ body {
 #video-wrap {
     width: 100%;
     margin: 0 auto;
+    padding: 20px;
     position: relative;
-    background-color: #ccc;
+    top: 70px;
+    background-color: transparent;
 
     #video {
         width: 100%;
@@ -167,15 +197,23 @@ body {
         position: relative;
         border: none;
     }
-}
-.intro #video-wrap {
-    display: none;
+
+    #video-frame {
+        position: absolute;
+        top: 0;
+        left: 0;
+        height: 100%;
+        width: 100%;
+        background: transparent image-url("heart-frame.png") no-repeat 0 0;
+        background-size: 100%;
+    }
 }
 #controls {
     width: 457px;
     height: 133px;
     margin: 0 auto;
     position: relative;
+    top: -20px;
     z-index: 1225;
 
     a {
@@ -211,6 +249,8 @@ body {
     }
 
 }
+
+
 
 /*intro sequence*/
 
@@ -255,7 +295,6 @@ body {
     &.no-support {
         #browserMsg {
             display: block;
-            color: #fff;
         }
     }
 
