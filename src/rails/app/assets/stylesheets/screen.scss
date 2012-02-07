@@ -1,22 +1,37 @@
-/*mixins and shared values*/
+/*fonts*/
+
+@font-face {
+    font-family: 'BallparkWeiner';
+    src: url('/fonts/ballpark_weiner-webfont.eot');
+    src: url('/fonts/ballpark_weiner-webfont.eot?#iefix') format('embedded-opentype'),
+    url('/fonts/ballpark_weiner-webfont.woff') format('woff'),
+    url('/fonts/ballpark_weiner-webfont.ttf') format('truetype'),
+    url('/fonts/ballpark_weiner-webfont.svg#BallparkWeiner') format('svg');
+    font-weight: 100;
+    font-style: normal;
+}
+
+@font-face {
+    font-family: 'DynalightRegular';
+    src: url('/fonts/Dynalight-Regular-webfont.eot');
+    src: url('/fonts/Dynalight-Regular-webfont.eot?#iefix') format('embedded-opentype'),
+    url('/fonts/Dynalight-Regular-webfont.woff') format('woff'),
+    url('/fonts/Dynalight-Regular-webfont.ttf') format('truetype'),
+    url('/fonts/Dynalight-Regular-webfont.svg#DynalightRegular') format('svg');
+    font-weight: normal;
+    font-style: normal;
+}
+
+/*mixins*/
 
 @mixin JJbgImage($imageFile, $repeat: no-repeat) {
 	display: block;
 	background: transparent $imageFile $repeat 0 0;
 }
-@mixin rounded($radius) {
-	border-radius: $radius;
-	-webkit-border-radius: $radius;
-	-moz-border-radius: $radius;
-}
-@mixin flipHorizontal {
-    -moz-transform: scaleX(-1);
-    -o-transform: scaleX(-1);
-    -webkit-transform: scaleX(-1);
-    transform: scaleX(-1);
-    filter: FlipH;
-    -ms-filter: "FlipH";
-}
+
+/*variables*/
+
+$animationFactor: 1;
 $headerHeight: 197px;
 $contentWidth: 997px;
 $videoWrapWidth: 566px;
@@ -28,221 +43,310 @@ body {
 }
 
 #main-wrap {
-	display: none;
+	display: block;
 	width: 100%;
 	height: 100%;
 	min-width: $contentWidth;
 	min-height: 600px;
 	position: relative;
 	overflow: hidden;
-	background: #d5e2f8 image-url("bg-main-grad.jpg") repeat-y center;
+    background: #000;
 }
-#main-wrap.splash {
-    opacity: 0;
-}
-#header {
+#main-wrap #header {
 	width: 100%;
 	height: $headerHeight;
-	@include JJbgImage(image-url("bg-trees-tile.png"), repeat-x);
-	background-position: top;
+	@include JJbgImage(image-url("moon-top.png"));
+	background-position: center bottom;
 }
-.splash #header {
-    background-position: bottom;
-}
-#content {
+#main-wrap #content {
 	width: 100%;
 	height: 100%;
 	position: relative;
+    display: -webkit-box;
+    -webkit-box-orient: horizontal;
+    background-color: #072a3e;
+    background-image: image-url("moon-bottom.png"), image-url("bg-main-grad.jpg");
+    background-repeat: no-repeat, repeat-x;
+    background-position: center top, center top;
 
 	.content-col {
-		position: absolute;
+		/*position: relative;*/
 	}
-	.content-col.intro {
-		visibility: hidden;
-	}
-	#col-left {
-		width: 215px;
-		left: 0;
-		background-color: #666;
+	#col-left, #col-right {
+        width: 270px;
+        padding: 15px;
+        text-align: center;
 	}
 	#col-mid {
-		/*width: 100%;*/
-		height: 100%;
+        width: 397px;
+        -webkit-box-flex: 1;
 	}
-	#col-right {
-		width: 215px;
-		right: 0;
-		background-color: #666;
-	}
+    h1, h2 {
+        margin: 33px;
+        border-radius: 1px;
+        box-shadow: 0 0 16px 16px pink;
+        background-color: pink;
+        font: normal 34px/28px DynalightRegular;
+        color: #000;
+    }
 }
 
-/*some default states*/
+/*main states for using the site*/
 
-/*#video-wrap {*/
-	/*visibility: hidden;*/
-/*}*/
-
-/*main moving elements*/
+#main-wrap #browserMsg {
+    display: none;
+}
 
 #tank {
-	$sharkHeight: 326px;
-	width: 100%;
-	height: $sharkHeight;
+	width: 20%;
+	height: 24%;
 	position: absolute;
 	bottom: 0;
+    left: 2%;
 	z-index: 1;
 
 	#shark {
-        width: 257px;
-		height: $sharkHeight;
-		position: absolute;
-		@include JJbgImage(image-url("img-bruce.png"));
-		background-size: 100%;
+        width: 100%;
+		height: 100%;
+        background: transparent image-url("img-bruce-theme.png") no-repeat bottom;
+        background-size: contain;
 	}
-}
-.splash #tank {
-    #shark {
-        bottom: -326px;
-        background-position: bottom;
-    }
 }
 #logo-wrap {
 	display: block;
-	width: 650px;
-	height: 123px;
-	position: absolute;
-	top: 21px;
+	width: 20%;
+	height: 80%;
+	position: relative;
+    top: 10%;
+    left: 20px;
 
 	#logo-jaws {
-		width: 50%;
-		height: 80%;
-		position: absolute;
-		right: 23%;
-		bottom: 0;
+		width: 100%;
+		height: 100%;
+        margin: 0 auto 0;
+		position: relative;
 		@include JJbgImage(image-url("txt-jaws.png"));
 		background-size: contain;
         background-position: center;
 	}
-	#logo-jingle {
-        width: 46%;
+	#logo-theme {
+        width: 120%;
 		height: 75%;
-		position: absolute;
-		left: 0;
-		top: 0;
-		@include JJbgImage(image-url("txt-jingle.png"));
-		background-size: contain;
+        margin: 0 auto;
+		position: relative;
+		top: -40%;
+        font: normal 36px BallparkWeiner, serif;
+        color: #ff99ff;
+        -webkit-transform: rotate(-14deg);
+        text-align: right;
+        text-shadow: -6px 3px 3px #000;
 	}
 }
-.splash #logo-wrap {
-    #logo-jaws {
+
+#swimmer {
+    position: relative;
+    top: -102%;
+    width: 225px;
+    height: 64px;
+    margin: 0 auto;
+    background-color: transparent;
+    background-repeat: no-repeat;
+    background-image: image-url("img-swimmer-male.png"), image-url("img-swimmer-female.png");
+    background-position: top left, top right;
+}
+
+#video-wrap {
+    width: 100%;
+    margin: 0 auto;
+    position: relative;
+    background-color: #ccc;
+
+    #video {
+        width: 100%;
+        height: 100%;
+        position: relative;
+        border: none;
+    }
+}
+.intro #video-wrap {
+    display: none;
+}
+#controls {
+    width: 457px;
+    height: 133px;
+    margin: 0 auto;
+    position: relative;
+    z-index: 1225;
+
+    a {
+        width: 102px;
+        height: 109px;
+        float: left;
+        @include JJbgImage(image-url("img-controls-active.png"));
+        cursor: pointer;
+
+        &:hover {
+            background-image: image-url("img-controls-hover.png");
+        }
+    }
+    a.mini {
+        width: 73px;
+        height: 75px;
+        margin-top: 16px;
+    }
+    #rise {
+        background-position: -2px -16px;
+    }
+    #left {
+        background-position: -74px 0;
+    }
+    #straight {
+        background-position: -178px 0;
+    }
+    #right {
+        background-position: -282px 0;
+    }
+    #dive {
+        background-position: -386px -16px;
+    }
+
+}
+
+/*intro sequence*/
+
+@-webkit-keyframes swim {
+    0% {width: 997px; opacity: 0;}
+    20% {opacity: 1;}
+    100% {width: 225px; opacity: 1;}
+}
+
+#main-wrap.default {
+
+    $animationDuration: 10s;
+    
+    #header, #content {
+        opacity: 0;
+        -webkit-transition-property: all;
+        -webkit-transition-duration: $animationDuration;
+        -webkit-animation-timing-function: linear;
+    }
+    #header {
+        background: #fff none center bottom;
+    }
+    #swimmer {
+        width: 100%;
+        opacity: 0;
+    }
+    .content-col {
+        display: none;
+    }
+    #tank {
+        display: none;
+    }
+    #logo-wrap {
         height: 0;
+        width: 100%;
+        left: auto;
     }
-    #logo-jingle {
+    #logo-theme {
         display: none;
     }
-}
 
-#ticker {
-	width: 100%;
-	height: 45px;
-	position: absolute;
-	top: $headerHeight - 20px;
-	overflow: hidden;
-	z-index: 2;
+    &.no-support {
+        #browserMsg {
+            display: block;
+            color: #fff;
+        }
+    }
 
-	#sleigh {
-		position: absolute;
-		width: 150px;
-		height: 45px;
-		@include JJbgImage(image-url("img-sleigh-ltr.png"));
-        display: none;
-	}
+    &.loading {
+        background: #000 image-url("ajax-loader.gif") no-repeat 50% 50%;
+    }
 
-	#sleigh.flip {
-		@include JJbgImage(image-url("img-sleigh-rtl.png"));
-		width: auto;
-		padding-left: 150px;
+    &.intro {
 
-		#ticker-content {
-			width: 100%;
-            height: 15px;
-			padding-top:10px;
-			overflow: hidden;
-			font: normal 15px/15px Arial;
-		}
-	}
-}
+        $animationDuration: 5s;
 
-/*content state (everything except splash)*/
+        #header {
+            opacity: 1;
+        }
 
+        #logo-wrap {
+            -webkit-transition-property: all;
+            -webkit-transition-duration: $animationDuration;
+            -webkit-animation-timing-function: linear;
+        }
+        
+        #content {
+            opacity: 1;
+            background-image: image-url("bg-main-grad.jpg");
+            background-repeat: repeat-x;
+            background-position: center top;
+        }
 
-	#video-wrap {
-		display: block;
-		width: 100%;
-		height: 100%;
-		margin: 0 auto;
-		position: relative;
+        #tank {
+            display: block;
+            width: 100%;
+            height: 60%;
+            left: auto;
+            bottom: -60%;
+            -webkit-transition-property: all;
+            -webkit-transition-duration: $animationDuration;
+            -webkit-animation-timing-function: linear;
+        }
 
-		#viewport {
-			position: absolute;
-			overflow: hidden;
-			@include rounded(50%);
+        &.splash {
+            #tank {
+                display: block;
+                width: 100%;
+                height: 60%;
+                left: auto;
+                bottom: 0;
+            }
+            #shark {
+                background-image: image-url("img-bruce.png");
+            }
+            #logo-wrap {
+                height: 80%;
+            }
 
-			#video {
-				width: 100%;
-				height: 75%;
-				position: relative;
-				/*visibility: hidden;*/
-			}
-		}
-		#porthole {
-			margin: 0 auto;
-			position: relative;
-			top: 0;
-			@include JJbgImage(image-url("bg-porthole.png"));
-			background-size: 100% 200%;
-		}
-	}
-	#controls {
-		width: 457px;
-		height: 133px;
-		margin: 0 auto;
-		position: relative;
-		top: -145px;
-		z-index: 1225;
+            &.add-theme {
 
-		a {
-			width: 102px;
-			height: 109px;
-			float: left;
-			@include JJbgImage(image-url("img-controls-active.png"));
-			cursor: pointer;
+                $animationDuration: 0;
 
-			&:hover {
-				background-image: image-url("img-controls-hover.png");
-			}
-		}
-		a.mini {
-			width: 73px;
-			height: 75px;
-			margin-top: 16px;
-		}
-		#rise {
-			background-position: -2px -16px;
-		}
-		#left {
-			background-position: -74px 0;
-		}
-		#straight {
-			background-position: -178px 0;
-		}
-		#right {
-			background-position: -282px 0;
-		}
-		#dive {
-			background-position: -386px -16px;
-		}
+                #header {
+                    background: #000 image-url("moon-top.png") no-repeat center bottom;
+                    -webkit-transition-duration: $animationDuration;
+                }
+                #logo-theme {
+                    display: block;
+                    width: 39%;
+                    height: 75%;
+                    margin: 0 auto;
+                    position: relative;
+                    top: -25%;
+                    font: normal 64px BallparkWeiner, serif;
+                }
+                #content {
+                    background-image: image-url("moon-bottom.png"), image-url("bg-main-grad.jpg");
+                    background-repeat: no-repeat, repeat-x;
+                    background-position: center top, center top;
+                    -webkit-transition-duration: $animationDuration;
+                }
+                #shark {
+                    background-image: image-url("img-bruce-theme.png");
+                }
+                #swimmer {
+                    -webkit-animation-name: swim;
+                    -webkit-animation-duration: 10s;
+                    -webkit-animation-fill-mode: forwards;
+                }
 
-}
+            } /* end .add-theme */
 
+        } /* end .splash */
+
+    } /* .intro */
+
+} /* end main-wrap.default */
 
