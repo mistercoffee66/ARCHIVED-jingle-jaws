@@ -1,3 +1,13 @@
+/* table of contents
+fonts
+keyframe animations
+mixins
+variables
+basic layout and UI elements
+intro sequence
+*/
+
+
 /*fonts*/
 
 @font-face {
@@ -22,6 +32,23 @@
     font-style: normal;
 }
 
+/*keyframe animations*/
+@-webkit-keyframes timer {
+    100% {foo: bar;}
+}
+
+@-webkit-keyframes swim {
+    0% {width: 997px; opacity: 0;}
+    20% {opacity: 1;}
+    100% {width: 225px; opacity: 1;}
+}
+
+@-webkit-keyframes blink {
+    0% {color: transparent;}
+    50% {color: red;}
+    100% {color: transparent;}
+}
+
 /*mixins*/
 
 @mixin JJbgImage($imageFile, $repeat: no-repeat) {
@@ -35,10 +62,11 @@ $animationFactor: 1;
 $headerHeight: 197px;
 $contentWidth: 997px;
 $videoWrapWidth: 566px;
-$animationDuration: 1s; /* this also gets different values in different contexts */
 
-/*basic layout*/
+/* this also gets different values in different contexts */
+$animationDuration: 1s;
 
+/* basic layout and UI elements */
 body {
 	background-color: #000;
 }
@@ -82,34 +110,74 @@ body {
         width: 397px;
         -webkit-box-flex: 1;
 	}
-    h1, h2 {
-        margin: 33px;
+    .h2 {
+        width: 200px;
+        margin: 25px auto;
         border-radius: 1px;
         box-shadow: 0 0 16px 16px pink;
         background-color: pink;
-        font: normal 34px/28px DynalightRegular;
         color: #000;
-    }
-    input, textarea {
-        width: 80%;
-        border: solid 6px pink;
-        -webkit-border-radius: 4px;
-        font: bold italic 24px/30px Times, serif;
-        color: #999;
-        text-align: center;
-    }
-    input {
-        height: 45px;
-        padding: 6px;
+        
+            p {
+                margin: 0 0 10px;
+                font: normal 34px/28px DynalightRegular;
+            }
 
-    }
-    textarea {
-        height: 120px;
-        padding: 5px;
+        input, textarea {
+            width: 100%;
+            border: solid 6px pink;
+            -webkit-border-radius: 4px;
+            font: bold italic 24px/30px Times, serif;
+            color: #999;
+            text-align: center;
+
+            &.active {
+                color: #000;
+            }
+        }
+        input {
+            height: 45px;
+            padding: 6px;
+
+        }
+        textarea {
+            height: 120px;
+            padding: 5px;
+        }
+        .btn {
+            display: block;
+            margin: 10px auto;
+            border-radius: 18px;
+            background: #000;
+            box-shadow: 3px 3px 10px black;
+            font: normal 25px/34px DynalightRegular;
+            color: #fff;
+            text-align: center;
+            cursor: pointer;
+
+            &.active {
+                background: red;
+            }
+        }
+        #enter {
+            width: 130px;
+            height: 34px;
+        }
+        #submit-msg {
+            width: 79px;
+            height: 34px;
+        }
+        #statusMsg {
+            font: normal 14px/18px Arial, sans-serif;
+
+                span {
+                    font-weight: bold;
+                    font-size: 1.2em;
+                    color: red;
+                }
+        }
     }
 }
-
-/*main states for using the site*/
 
 #main-wrap #browserMsg {
     display: none;
@@ -196,6 +264,7 @@ body {
         height: 100%;
         position: relative;
         border: none;
+        -webkit-mask-box-image: image-url("mask-heart.png");
     }
 
     #video-frame {
@@ -214,7 +283,7 @@ body {
     margin: 0 auto;
     position: relative;
     top: -20px;
-    z-index: 1225;
+    z-index: 10;
 
     a {
         width: 102px;
@@ -224,7 +293,7 @@ body {
         cursor: pointer;
 
         &:hover {
-            background-image: image-url("img-controls-hover.png");
+            background: transparent image-url("img-controls-hover.png") no-repeat 0 0;
         }
     }
     a.mini {
@@ -250,29 +319,57 @@ body {
 
 }
 
+#overlay {
+    height: 100%;
+    width: 100%;
+    display: none;
+    background-color: #fff;
+    position: absolute;
+    top: 0;
+    left: 0;
+    opacity: .8;
+    font: bold 400px Arial, sans-serif;
+    color: #000;
+    text-align: center;
+    z-index: 20;
+
+    &.active {
+        display: block;
+    }
+
+        &.blink
+
+            span {
+                -webkit-animation-name: blink;
+                -webkit-animation-duration: 300ms;
+                -webkit-animation-iteration-count: infinite;
+            }
+}
 
 
 /*intro sequence*/
 
-@-webkit-keyframes swim {
-    0% {width: 997px; opacity: 0;}
-    20% {opacity: 1;}
-    100% {width: 225px; opacity: 1;}
-}
-
 #main-wrap.default {
 
     $animationDuration: 10s;
-    
-    #header, #content {
-        opacity: 0;
-        -webkit-transition-property: all;
+
+    #header {
+        /*opacity: 0;*/
+        background: #000 none center bottom;
+        -webkit-transition-property: background-color;
         -webkit-transition-duration: $animationDuration;
         -webkit-animation-timing-function: linear;
     }
-    #header {
-        background: #fff none center bottom;
+
+    #content {
+        opacity: 0;
+        -webkit-transition-property: opacity;
+        -webkit-transition-duration: $animationDuration;
+        -webkit-animation-timing-function: linear;
     }
+    /*#header {*/
+        /*background: #fff none center bottom;*/
+    /*}*/
     #swimmer {
         width: 100%;
         opacity: 0;
@@ -306,8 +403,12 @@ body {
 
         $animationDuration: 5s;
 
+        -webkit-animation-name: timer;
+        -webkit-animation-duration: $animationDuration;
+
         #header {
-            opacity: 1;
+            /*opacity: 1;*/
+            background-color: #fff;
         }
 
         #logo-wrap {
@@ -335,6 +436,12 @@ body {
         }
 
         &.splash {
+
+            $animationDuration: 3s;
+
+            -webkit-animation-name: timer;
+            -webkit-animation-duration: $animationDuration;
+
             #tank {
                 display: block;
                 width: 100%;
@@ -352,6 +459,9 @@ body {
             &.add-theme {
 
                 $animationDuration: 0;
+
+                -webkit-animation-name: timer;
+                -webkit-animation-duration: 2s;
 
                 #header {
                     background: #000 image-url("moon-top.png") no-repeat center bottom;
@@ -377,7 +487,7 @@ body {
                 }
                 #swimmer {
                     -webkit-animation-name: swim;
-                    -webkit-animation-duration: 10s;
+                    -webkit-animation-duration: 5s;
                     -webkit-animation-fill-mode: forwards;
                 }
 

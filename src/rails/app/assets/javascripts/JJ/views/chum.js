@@ -21,13 +21,15 @@ JJ.views.chum.Index.prototype = {
         var self = this;
         this._mainWrap = $('#main-wrap');
 		this._videoWrap = $('#video-wrap');
-		this._colLeft = $('#col-left');
-		this._colRight = $('#col-right');
 		this._colMid = $('#col-mid');
 		this._controls = $('#controls');
-		this._logoWrap = $('#logo-wrap');
         this._theme = document.getElementById('theme');
         this._preLoad = $.Deferred();
+        this._enter = $('#enter');
+        this._userName = $('#user-name');
+        this._userMsg = $('#user-msg');
+        this._submitMsg = $('#submit-msg');
+        this._overlay = $('#overlay');
 
 
         if (this.noSharkForYou()) {
@@ -41,7 +43,6 @@ JJ.views.chum.Index.prototype = {
             this._preLoad.done(function(){
 
                 // enable various clicks to turn on classes for testing
-                $(self._mainWrap).removeClass('loading').addClass('intro');
                 $(self._mainWrap).click(function() {
                     $(this).addClass('splash');
                 });
@@ -49,12 +50,11 @@ JJ.views.chum.Index.prototype = {
                     $(self._mainWrap).addClass('add-theme');
                 });
                 $('#tank').click(function() {
-                    $(self._mainWrap).attr('class', '');
-                    self.setVideoSize();
-                });
+                    self.showContentState();
+                }); // end testing clicks
 
-                $(window).resize($.proxy(self.setVideoSize, self));
-                $(self._logoWrap).click($.proxy(self.showContentState, self));
+                self.doIntro();
+
             });
 
         }
@@ -123,7 +123,12 @@ JJ.views.chum.Index.prototype = {
 			aspectRatio = .75,
 			videoDims = {};
 
-        videoDims.w = colDims.w;
+        JJ.log(colDims);
+
+        videoDims.w =
+            colDims.w -
+            parseInt($(self._videoWrap).css('paddingLeft')) -
+            parseInt($(self._videoWrap).css('paddingRight'));
         videoDims.h = videoDims.hMax = colDims.h - $(self._controls).height() - $(self._header).height();
 
 
@@ -140,6 +145,8 @@ JJ.views.chum.Index.prototype = {
         $(self._videoWrap).width(videoDims.w);
         $(self._videoWrap).height(videoDims.h);
 
+        $(self._overlay).css( 'line-height', $(self._mainWrap).height() + 'px' );
+
 	},
 
     doIntro: function() {
@@ -147,15 +154,155 @@ JJ.views.chum.Index.prototype = {
         var self = this;
 
         self._theme.play();
+        $(self._mainWrap).on('webkitAnimationEnd', function(){
 
-        // TODO
+            if ($(this).hasClass('add-theme')) {
+                self.showContentState();
+            }
+            else if ($(this).hasClass('splash')) {
+                $(this).addClass('add-theme');
+            }
+            else if ($(this).hasClass('intro')) {
+                $(this).addClass('splash');
+            }
+
+        });
+
+        $(self._mainWrap).removeClass('loading').addClass('intro');
+
 
     },
 
 	showContentState: function() {
-        // TODO
+
+        var self = this;
+
+        $(self._mainWrap).attr('class', '');
+        self.setVideoSize();
+
+        $('a').click(function(e){
+            e.preventDefault();
+            console.log(this + ' click');
+        });
+
+        // username input
+        $(self._userName).focus(function(){
+
+            $(this).addClass('active');
+
+            if ($(this).val() == 'name') {
+                $(this).val('');
+            }
+
+        });
+
+        $(self._userName).keyup(function(){
+
+            if ( ($(this).val() == '') || ($(this).val() == 'name') ) {
+                $(self._enter).removeClass('active');
+            }
+            else {
+                $(self._enter).addClass('active');
+            }
+
+        });
+
+        $(self._userName).blur(function(){
+
+            if ( ($(this).val() == '') || ($(this).val() == 'name') ) {
+                $(this).val('name');
+                $(this).removeClass('active');
+            }
+
+        });
+
+        // user message input
+        $(self._userMsg).focus(function(){
+
+            $(this).addClass('active');
+
+            if ($(this).val() == 'your Valentine message') {
+                $(this).val('');
+            }
+
+        });
+
+        $(self._userMsg).keyup(function(){
+
+            if ( ($(this).val() == '') || ($(this).val() == 'your Valentine message') ) {
+                $(self._submitMsg).removeClass('active');
+            }
+            else {
+                $(self._submitMsg).addClass('active');
+            }
+
+        });
+
+        $(self._userMsg).blur(function(){
+
+            if ( ($(this).val() == '') || ($(this).val() == 'your Valentine message') ) {
+                $(this).val('your Valentine message');
+                $(this).removeClass('active');
+                JJ.log('reset');
+            }
+
+        });
+
+        $('#enter').bind('click', function() {
+
+            JJ.log('do countdown');
+            self.doCountdown();
+        });
+
+        $(self._submitMsg).bind('click', function() {
+
+            JJ.log('send message');
+            self.sendMessage();
+        });
 
 	},
+
+
+    doCountdown: function() {
+
+        var self = this,
+            i = 9,
+            t;
+
+        $(self._overlay).addClass('active');
+
+        t = setInterval(function(){
+
+            if (i < 1) {
+
+                clearInterval(t);
+                $(self._overlay).removeClass('active').removeClass('blink');
+            }
+
+            else {
+
+                if (i == 3) {
+                    $(self._overlay).addClass('blink');
+                }
+
+                $(self._overlay).find('span').text(i);
+                i = i - 1;
+            }
+
+
+        }, 1000);
+
+    },
+
+    sendMessage: function() {
+
+        var self = this,
+            message = $(self._userMsg).val().replace(/\s/gi, ',');
+
+        $.get('http://10.29.47.63:2000/?t=|' + message + '|');
+        JJ.log(message);
+
+    },
 
 
 	initServerEvents: function() {

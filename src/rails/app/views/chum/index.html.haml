@@ -1,27 +1,32 @@
 #browserMsg use Chrome or Safari
+-#%a#foo testing
 #content
   #col-left.content-col
-    %h2 take me for a spin!
-    %input#userName(type="text" value="enter name")
-    #enter.btn Enter Queue
-    #statusMsg
-      There are currently
-      %span X
-      guppies in the queue. Your approximate wait time is
-      %span X:XX
+    .h2
+      %p take me for a spin!
+      %input#user-name(type="text" value="name")
+      %a#enter.btn(href="#") Enter Queue
+      #statusMsg
+        There are currently
+        %span X
+        guppies in the queue. Your approximate wait time is
+        %span X:XX
   #col-mid.content-col
     #video-wrap
       %iframe#video(src="/cam_frame.html" frameborder="0" scrolling="no")
-      #video-frame
+      -##video-frame
     #controls
-      %a#rise.mini.ir rise
-      %a#left.ir left
-      %a#straight.ir straight
-      %a#right.ir right
-      %a#dive.mini.ir dive
+      %a#rise.mini.ir(href="#") rise
+      %a#left.ir(href="#") left
+      %a#straight.ir(href="#") straight
+      %a#right.ir(href="#") right
+      %a#dive.mini.ir(href="#") dive
   #col-right.content-col
-    %h2 let me whisper sweet nothings in your ear!
-    %textarea#userMsg type your Valentine message
-    #submitMsg.btn Speak
+    .h2
+      %p let me whisper sweet nothings in your ear!
+      %textarea#user-msg your Valentine message
+      %a#submit-msg.btn(href="#") Send
   %audio#theme
 #swimmer
+#overlay
+  %span 10

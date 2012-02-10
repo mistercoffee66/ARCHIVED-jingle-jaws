@@ -242,6 +242,7 @@ input:invalid, textarea:invalid {
 /* j.mp/webkit-tap-highlight-color */
 a:link {
 	-webkit-tap-highlight-color: #FF5E99;
+    text-decoration: none;
 }
 
 /* Make buttons play nice in IE:
